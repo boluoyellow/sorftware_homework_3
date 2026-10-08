@@ -5,3 +5,5 @@ Thumbs.db
 *.log
 coverage/
 project.private.config.json
+/联网版本/
+/cloud-version/cloudfunctions/*/node_modules/

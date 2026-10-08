@@ -1,5 +1,6 @@
 {
-  "description": "拾光校园寻物启事微信小程序",
+  "description": "拾光校园寻物启事微信小程序（云开发版）",
+  "cloudfunctionRoot": "cloudfunctions/",
   "packOptions": {
     "ignore": [
       {
@@ -20,14 +21,6 @@
       },
       {
         "value": ".chrome-cdp",
-        "type": "folder"
-      },
-      {
-        "value": "cloud-version",
-        "type": "folder"
-      },
-      {
-        "value": "联网版本",
         "type": "folder"
       }
     ],
@@ -62,7 +55,7 @@
   "compileType": "miniprogram",
   "libVersion": "3.7.12",
   "appid": "wxb518f946f5c1f9bf",
-  "projectname": "拾光校园寻物",
+  "projectname": "拾光校园寻物-联网版",
   "simulatorPluginLibVersion": {},
   "editorSetting": {}
 }
