@@ -15,9 +15,7 @@
 
   <view class="detail-sheet">
     <view class="title-block">
-      <view class="pill {{item.status === 'closed' ? 'tag-closed' : (item.type === 'lost' ? 'tag-lost' : 'tag-found')}}">
-        {{item.status === 'closed' ? (item.type === 'lost' ? '已找回' : '已归还') : (item.type === 'lost' ? '寻物中' : '招领中')}}
-      </view>
+      <view class="pill {{item.status === 'closed' ? 'tag-closed' : (item.type === 'lost' ? 'tag-lost' : 'tag-found')}}">{{item.status === 'closed' ? (item.type === 'lost' ? '已找回' : '已归还') : (item.type === 'lost' ? '寻物中' : '招领中')}}</view>
       <text class="detail-title">{{item.title}}</text>
       <view class="owner-row">
         <view class="owner-avatar">{{item.ownerInitial}}</view>

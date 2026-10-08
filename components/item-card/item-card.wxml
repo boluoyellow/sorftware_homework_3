@@ -2,9 +2,7 @@
   <view class="item-image" style="background: {{item.gradient}}">
     <image wx:if="{{item.image}}" class="real-image" src="{{item.image}}" mode="aspectFill" />
     <text wx:else class="emoji">{{item.emoji}}</text>
-    <text class="type-badge {{item.status === 'closed' ? 'closed' : item.type}}">
-      {{item.status === 'closed' ? (item.type === 'lost' ? '已找回' : '已归还') : (item.type === 'lost' ? '寻物中' : '招领中')}}
-    </text>
+    <text class="type-badge {{item.status === 'closed' ? 'closed' : item.type}}">{{item.status === 'closed' ? (item.type === 'lost' ? '已找回' : '已归还') : (item.type === 'lost' ? '寻物中' : '招领中')}}</text>
   </view>
   <view class="item-content">
     <view class="item-topline">

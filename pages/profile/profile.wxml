@@ -6,7 +6,6 @@
         <text class="hero-kicker">MY SPACE</text>
         <text class="hero-heading">个人中心</text>
       </view>
-      <button class="settings-button" bindtap="showAbout">···</button>
     </view>
 
     <view wx:if="{{user}}" class="user-card">
@@ -73,26 +72,8 @@
       </button>
     </view>
 
-    <view class="section-label">帮助与设置</view>
+    <view class="section-label">演示设置</view>
     <view class="menu-card card">
-      <button class="menu-row" bindtap="showService">
-        <view class="menu-icon service">盾</view>
-        <view class="menu-copy">
-          <text class="menu-title">安全与帮助</text>
-          <text class="menu-desc">认领指南和校园服务</text>
-        </view>
-        <text class="menu-arrow">›</text>
-      </button>
-      <view class="menu-divider"></view>
-      <button class="menu-row" bindtap="showAbout">
-        <view class="menu-icon about">i</view>
-        <view class="menu-copy">
-          <text class="menu-title">关于拾光</text>
-          <text class="menu-desc">版本 1.0.0</text>
-        </view>
-        <text class="menu-arrow">›</text>
-      </button>
-      <view class="menu-divider"></view>
       <button class="menu-row" bindtap="resetDemo">
         <view class="menu-icon reset">↻</view>
         <view class="menu-copy">

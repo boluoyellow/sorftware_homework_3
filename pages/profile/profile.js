@@ -42,24 +42,6 @@ Page({
     wx.navigateTo({ url: '/pages/favorites/favorites' })
   },
 
-  showService() {
-    wx.showModal({
-      title: '校园失物服务',
-      content: '贵重物品建议同步联系学校保卫处；若遇到可疑索要或转账请求，请立即停止联系。',
-      showCancel: false,
-      confirmText: '我知道了'
-    })
-  },
-
-  showAbout() {
-    wx.showModal({
-      title: '关于拾光',
-      content: '拾光是一款校园寻物启事小程序，希望让每一次拾得与寻找都更高效、更温暖。',
-      showCancel: false,
-      confirmText: '很好'
-    })
-  },
-
   resetDemo() {
     wx.showModal({
       title: '恢复演示数据',

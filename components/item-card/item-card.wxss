@@ -30,13 +30,18 @@
   position: absolute;
   left: 18rpx;
   top: 18rpx;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 46rpx;
   padding: 0 18rpx;
   border-radius: 999rpx;
   color: #fff;
   font-size: 20rpx;
   font-weight: 700;
-  line-height: 46rpx;
+  line-height: 1;
+  white-space: nowrap;
   backdrop-filter: blur(8px);
 }
 
