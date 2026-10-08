@@ -1,0 +1,44 @@
+.empty-wrap {
+  padding: 90rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 132rpx;
+  height: 132rpx;
+  border-radius: 46rpx;
+  background: #fff2d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64rpx;
+  transform: rotate(-4deg);
+}
+
+.empty-title {
+  margin-top: 30rpx;
+  color: #173f3a;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.empty-description {
+  margin-top: 12rpx;
+  color: #7c918d;
+  font-size: 24rpx;
+}
+
+.empty-action {
+  margin-top: 32rpx;
+  height: 72rpx;
+  padding: 0 32rpx;
+  border-radius: 24rpx;
+  background: #173f3a;
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+  line-height: 72rpx;
+}

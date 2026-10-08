@@ -1,0 +1,16 @@
+<view class="nav-shell">
+  <view class="nav-inner">
+    <button class="nav-item {{current === 'home' ? 'active' : ''}}" bindtap="goHome">
+      <text class="nav-icon">⌂</text>
+      <text class="nav-label">首页</text>
+    </button>
+    <button class="publish-button {{current === 'publish' ? 'active' : ''}}" bindtap="goPublish">
+      <text class="publish-icon">＋</text>
+    </button>
+    <button class="nav-item {{current === 'profile' ? 'active' : ''}}" bindtap="goProfile">
+      <text class="nav-icon">♙</text>
+      <text class="nav-label">我的</text>
+    </button>
+  </view>
+  <view class="safe-bottom"></view>
+</view>

@@ -1,0 +1,36 @@
+<view class="posts-page">
+  <view class="safe-top"></view>
+  <view class="page-header">
+    <button class="back-button" bindtap="goBack">‹</button>
+    <text class="page-title">我的发布</text>
+    <view class="header-spacer"></view>
+  </view>
+
+  <view class="summary-card">
+    <view class="summary-copy">
+      <text class="summary-kicker">MY POSTS</text>
+      <text class="summary-title">你发布过 {{counts.all}} 条线索</text>
+      <text class="summary-desc">{{counts.open}} 条正在等待新的回应</text>
+    </view>
+    <view class="summary-visual">▤</view>
+  </view>
+
+  <view class="status-tabs">
+    <button wx:for="{{tabs}}" wx:key="key" class="status-tab {{currentStatus === item.key ? 'active' : ''}}" data-status="{{item.key}}" bindtap="changeStatus">
+      {{item.label}} <text>{{counts[item.key]}}</text>
+    </button>
+  </view>
+
+  <view wx:if="{{items.length}}" class="posts-list">
+    <view wx:for="{{items}}" wx:key="id" class="post-wrap">
+      <item-card item="{{item}}" compact bind:open="openDetail" bind:favorite="toggleFavorite" />
+      <view class="post-actions">
+        <view class="status-text {{item.status}}"><text></text>{{item.status === 'open' ? '展示中' : '已解决'}}</view>
+        <button wx:if="{{item.status === 'open'}}" class="action-button solved" data-id="{{item.id}}" bindtap="markSolved">✓ 标记解决</button>
+        <button wx:else class="action-button reopen" data-id="{{item.id}}" bindtap="reopen">↻ 重新开启</button>
+        <button class="action-button delete" data-id="{{item.id}}" bindtap="deleteItem">删除</button>
+      </view>
+    </view>
+  </view>
+  <empty-state wx:else icon="📭" title="这里还没有发布" description="发布一条寻物或招领信息，让更多人看见" action-text="去发布" bind:action="goPublish" />
+</view>

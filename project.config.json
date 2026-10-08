@@ -1,0 +1,60 @@
+{
+  "description": "拾光校园寻物启事微信小程序",
+  "packOptions": {
+    "ignore": [
+      {
+        "value": "prototype.png",
+        "type": "file"
+      },
+      {
+        "value": "prototype-cdp.png",
+        "type": "file"
+      },
+      {
+        "value": ".chrome-headless",
+        "type": "folder"
+      },
+      {
+        "value": ".chrome-headless-2",
+        "type": "folder"
+      },
+      {
+        "value": ".chrome-cdp",
+        "type": "folder"
+      }
+    ],
+    "include": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "coverView": true,
+    "showShadowRootInWxmlPanel": true,
+    "compileHotReLoad": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.7.12",
+  "appid": "wxb518f946f5c1f9bf",
+  "projectname": "拾光校园寻物",
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
+}

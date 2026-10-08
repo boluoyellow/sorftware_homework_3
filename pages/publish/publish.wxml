@@ -1,0 +1,118 @@
+<view class="page-shell publish-page">
+  <view class="safe-top"></view>
+  <view class="page-header">
+    <view>
+      <text class="page-kicker">CREATE A POST</text>
+      <text class="page-title">发布一条线索</text>
+    </view>
+    <view class="draft-badge">{{draftState}}</view>
+  </view>
+
+  <view class="form-content">
+    <view class="intro-card">
+      <view class="intro-icon">✦</view>
+      <view class="intro-copy">
+        <text class="intro-title">你想发布哪一类信息？</text>
+        <text class="intro-desc">请选择寻物启事或失物招领</text>
+      </view>
+    </view>
+
+    <view class="type-selector">
+      <button class="type-card lost {{type === 'lost' ? 'active' : ''}}" data-type="lost" bindtap="setType">
+        <view class="type-icon">⌕</view>
+        <view class="type-copy">
+          <text class="type-title">我丢了东西</text>
+          <text class="type-desc">发布寻物启事</text>
+        </view>
+        <text class="radio">{{type === 'lost' ? '●' : '○'}}</text>
+      </button>
+      <button class="type-card found {{type === 'found' ? 'active' : ''}}" data-type="found" bindtap="setType">
+        <view class="type-icon">✓</view>
+        <view class="type-copy">
+          <text class="type-title">我捡到了</text>
+          <text class="type-desc">发布失物招领</text>
+        </view>
+        <text class="radio">{{type === 'found' ? '●' : '○'}}</text>
+      </button>
+    </view>
+
+    <view class="form-section card">
+      <view class="section-heading">
+        <text class="section-index">01</text>
+        <text class="section-title">物品信息</text>
+      </view>
+
+      <view class="field">
+        <view class="field-label"><text>物品名称</text><text class="required">必填</text></view>
+        <input class="field-input" maxlength="24" value="{{title}}" data-field="title" placeholder="例如：白色无线耳机" placeholder-class="placeholder" bindinput="handleInput" />
+        <text class="char-count">{{title.length}} / 24</text>
+      </view>
+
+      <view class="field two-column">
+        <view class="half-field">
+          <view class="field-label"><text>物品分类</text></view>
+          <picker mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="handleCategory">
+            <view class="picker-value">{{category}} <text>⌄</text></view>
+          </picker>
+        </view>
+        <view class="half-field">
+          <view class="field-label"><text>{{type === 'lost' ? '丢失日期' : '拾取日期'}}</text></view>
+          <picker mode="date" value="{{date}}" end="{{date}}" bindchange="handleDate">
+            <view class="picker-value">{{date}} <text>⌄</text></view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="field">
+        <view class="field-label"><text>{{type === 'lost' ? '可能丢失地点' : '拾取地点'}}</text><text class="required">必填</text></view>
+        <view class="input-with-icon">
+          <text class="input-icon">⌖</text>
+          <input class="field-input icon-input" value="{{location}}" data-field="location" placeholder="楼栋、教室或校园区域" placeholder-class="placeholder" bindinput="handleInput" />
+        </view>
+      </view>
+
+      <view class="field no-border">
+        <view class="field-label"><text>物品照片</text><text class="optional">选填 · 更容易被认出</text></view>
+        <view wx:if="{{image}}" class="image-preview">
+          <image src="{{image}}" mode="aspectFill" />
+          <button class="remove-image" bindtap="removeImage">×</button>
+        </view>
+        <button wx:else class="upload-box" bindtap="chooseImage">
+          <view class="upload-icon">＋</view>
+          <text class="upload-title">添加清晰照片</text>
+          <text class="upload-desc">支持拍照或从相册选择</text>
+        </button>
+      </view>
+    </view>
+
+    <view class="form-section card">
+      <view class="section-heading">
+        <text class="section-index">02</text>
+        <text class="section-title">详细描述</text>
+      </view>
+      <view class="field no-border">
+        <textarea class="description-input" maxlength="300" value="{{description}}" data-field="description" placeholder="描述颜色、品牌、明显特征，以及事情经过等……" placeholder-class="placeholder" bindinput="handleInput"></textarea>
+        <text class="textarea-count">{{description.length}} / 300</text>
+      </view>
+    </view>
+
+    <view class="form-section card">
+      <view class="section-heading">
+        <text class="section-index">03</text>
+        <text class="section-title">联系信息</text>
+      </view>
+      <view class="field no-border">
+        <view class="field-label"><text>联系方式</text><text class="required">必填</text></view>
+        <input class="field-input" value="{{contact}}" data-field="contact" placeholder="微信、QQ 或手机号" placeholder-class="placeholder" bindinput="handleInput" />
+        <view class="privacy-tip"><text>◉</text> 联系方式仅在详情页中展示，请谨慎填写敏感信息</view>
+      </view>
+    </view>
+
+    <button class="submit-button" loading="{{submitting}}" bindtap="submit">
+      {{submitting ? '正在发布…' : '确认发布'}} <text wx:if="{{!submitting}}">↗</text>
+    </button>
+    <text class="agreement">发布即代表内容真实，并同意《社区发布规范》</text>
+  </view>
+
+  <bottom-nav current="publish" />
+</view>

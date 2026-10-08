@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "bottom-nav": "/components/bottom-nav/bottom-nav",
+    "item-card": "/components/item-card/item-card",
+    "empty-state": "/components/empty-state/empty-state"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

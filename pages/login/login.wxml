@@ -1,0 +1,51 @@
+<view class="login-page">
+  <view class="login-hero">
+    <view class="safe-top"></view>
+    <view class="login-header">
+      <button class="back-button dark" bindtap="goBack">‹</button>
+      <text class="header-caption">安全登录</text>
+      <view class="header-spacer"></view>
+    </view>
+    <view class="brand-visual">
+      <view class="logo-mark">拾</view>
+      <view class="orbit"></view>
+      <text class="star star-one">✦</text>
+      <text class="star star-two">•</text>
+    </view>
+    <text class="welcome-title">欢迎回来</text>
+    <text class="welcome-desc">登录拾光，继续管理你的每一条校园线索</text>
+  </view>
+
+  <view class="login-sheet">
+    <view class="input-group">
+      <text class="input-label">账号</text>
+      <view class="input-shell">
+        <text class="field-icon">♙</text>
+        <input value="{{account}}" data-field="account" placeholder="请输入学号或账号" placeholder-class="placeholder" bindinput="handleInput" />
+      </view>
+    </view>
+    <view class="input-group">
+      <text class="input-label">昵称 <text>选填</text></text>
+      <view class="input-shell">
+        <text class="field-icon">✎</text>
+        <input value="{{nickname}}" data-field="nickname" placeholder="展示给其他同学的称呼" placeholder-class="placeholder" bindinput="handleInput" />
+      </view>
+    </view>
+    <view class="input-group">
+      <text class="input-label">密码</text>
+      <view class="input-shell">
+        <text class="field-icon">⌁</text>
+        <input value="{{password}}" data-field="password" password="{{!showPassword}}" placeholder="请输入密码" placeholder-class="placeholder" bindinput="handleInput" />
+        <button class="eye-button" bindtap="togglePassword">{{showPassword ? '隐藏' : '显示'}}</button>
+      </view>
+    </view>
+
+    <view class="login-tip"><text>i</text> 这是课程演示版本，账号信息仅保存在本机。</view>
+
+    <button class="login-button" loading="{{submitting}}" bindtap="submit">{{submitting ? '正在登录…' : '登录'}} <text wx:if="{{!submitting}}">→</text></button>
+
+    <view class="divider"><text></text><view>或</view><text></text></view>
+    <button class="wechat-button" bindtap="wechatLogin"><view class="wechat-icon">微</view>微信快捷登录</button>
+    <text class="terms">登录即代表同意《用户协议》和《隐私政策》</text>
+  </view>
+</view>

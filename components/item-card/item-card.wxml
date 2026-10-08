@@ -1,0 +1,23 @@
+<view class="item-card {{compact ? 'compact' : ''}}" bindtap="openDetail">
+  <view class="item-image" style="background: {{item.gradient}}">
+    <image wx:if="{{item.image}}" class="real-image" src="{{item.image}}" mode="aspectFill" />
+    <text wx:else class="emoji">{{item.emoji}}</text>
+    <text class="type-badge {{item.status === 'closed' ? 'closed' : item.type}}">
+      {{item.status === 'closed' ? (item.type === 'lost' ? '已找回' : '已归还') : (item.type === 'lost' ? '寻物中' : '招领中')}}
+    </text>
+  </view>
+  <view class="item-content">
+    <view class="item-topline">
+      <text class="item-title">{{item.title}}</text>
+      <button class="favorite {{item.favorite ? 'on' : ''}}" catchtap="toggleFavorite">{{item.favorite ? '♥' : '♡'}}</button>
+    </view>
+    <view class="item-meta">
+      <text class="meta-icon">⌖</text>
+      <text class="meta-text">{{item.location}}</text>
+    </view>
+    <view class="item-bottom">
+      <text class="category">{{item.category}}</text>
+      <text class="date">{{item.date}}</text>
+    </view>
+  </view>
+</view>
