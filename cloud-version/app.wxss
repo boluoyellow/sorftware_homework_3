@@ -1,0 +1,131 @@
+page {
+  --ink: #173f3a;
+  --ink-soft: #52706b;
+  --paper: #f6f6f1;
+  --white: #ffffff;
+  --line: #e4e9e6;
+  --sun: #ffb020;
+  --sun-soft: #fff2d8;
+  --mint: #dff1eb;
+  --danger: #e8614f;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+}
+
+view, text, input, textarea, button, image, scroll-view, picker {
+  box-sizing: border-box;
+}
+
+button {
+  margin: 0;
+}
+
+button::after {
+  border: none;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding-bottom: calc(150rpx + env(safe-area-inset-bottom));
+}
+
+.safe-top {
+  height: env(safe-area-inset-top);
+  min-height: 44rpx;
+}
+
+.page-header {
+  height: 92rpx;
+  padding: 0 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-title {
+  font-size: 38rpx;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 1rpx;
+}
+
+.back-button {
+  width: 72rpx;
+  height: 72rpx;
+  padding: 0;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: var(--ink);
+  font-size: 42rpx;
+  box-shadow: 0 10rpx 28rpx rgba(23, 63, 58, 0.08);
+}
+
+.header-spacer {
+  width: 72rpx;
+}
+
+.card {
+  background: #fff;
+  border: 1rpx solid rgba(23, 63, 58, 0.05);
+  border-radius: 32rpx;
+  box-shadow: 0 12rpx 40rpx rgba(23, 63, 58, 0.06);
+}
+
+.primary-button {
+  height: 96rpx;
+  border-radius: 30rpx;
+  background: var(--ink);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondary-button {
+  height: 88rpx;
+  border-radius: 28rpx;
+  background: var(--sun-soft);
+  color: #8a5700;
+  font-size: 28rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.muted {
+  color: var(--ink-soft);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48rpx;
+  padding: 0 20rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.tag-lost {
+  background: #fff0e7;
+  color: #c85d2e;
+}
+
+.tag-found {
+  background: #e5f5ed;
+  color: #247154;
+}
+
+.safe-bottom {
+  height: env(safe-area-inset-bottom);
+}

@@ -1,0 +1,64 @@
+<view class="page-shell home-page">
+  <view class="hero-area">
+    <view class="safe-top"></view>
+    <view class="topbar">
+      <view class="brand">
+        <view class="brand-mark">拾</view>
+        <view>
+          <text class="brand-name">拾光</text>
+          <text class="brand-sub">校园寻物启事</text>
+        </view>
+      </view>
+      <view class="campus-pill"><text class="campus-dot"></text>本校</view>
+    </view>
+
+    <view class="hero-copy">
+      <text class="hero-eyebrow">LOST & FOUND</text>
+      <view class="hero-title">让每一件遗失，<text>都有回音。</text></view>
+      <text class="hero-desc">发布寻物或招领信息，和校园里的善意双向奔赴。</text>
+    </view>
+
+    <view class="hero-stats">
+      <view class="stat-block">
+        <text class="stat-number">{{openCount}}</text>
+        <text class="stat-label">进行中的线索</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-block">
+        <text class="stat-number">{{todayCount}}</text>
+        <text class="stat-label">今日新发布</text>
+      </view>
+      <button class="hero-action" bindtap="goPublish">去发布 <text>↗</text></button>
+    </view>
+  </view>
+
+  <view class="content-area">
+    <view class="search-box">
+      <text class="search-icon">⌕</text>
+      <input class="search-input" value="{{query}}" placeholder="搜物品、地点或分类" placeholder-class="search-placeholder" confirm-type="search" bindinput="handleSearch" />
+      <button wx:if="{{query}}" class="clear-button" bindtap="clearSearch">×</button>
+    </view>
+
+    <view class="section-row">
+      <text class="section-title">最新线索</text>
+      <view class="type-tabs">
+        <button wx:for="{{typeTabs}}" wx:key="key" class="type-tab {{currentType === item.key ? 'active' : ''}}" data-type="{{item.key}}" bindtap="changeType">{{item.label}}</button>
+      </view>
+    </view>
+
+    <scroll-view class="category-scroll" scroll-x enable-flex show-scrollbar="false">
+      <view class="category-row">
+        <button wx:for="{{categories}}" wx:key="*this" class="category-chip {{currentCategory === item ? 'active' : ''}}" data-category="{{item}}" bindtap="changeCategory">{{item}}</button>
+      </view>
+    </scroll-view>
+
+    <view wx:if="{{filteredItems.length}}" class="list-grid">
+      <view wx:for="{{filteredItems}}" wx:key="id" class="grid-cell">
+        <item-card item="{{item}}" bind:open="openDetail" bind:favorite="toggleFavorite" />
+      </view>
+    </view>
+    <empty-state wx:else title="没有找到相关线索" description="换个关键词或筛选条件试试看" action-text="清除筛选" bind:action="resetFilters" />
+  </view>
+
+  <bottom-nav current="home" />
+</view>

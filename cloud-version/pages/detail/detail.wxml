@@ -1,0 +1,101 @@
+<view wx:if="{{item}}" class="detail-page">
+  <view class="hero-image" style="background: {{item.gradient}}">
+    <image wx:if="{{item.image}}" class="real-image" src="{{item.image}}" mode="aspectFill" />
+    <text wx:else class="hero-emoji">{{item.emoji}}</text>
+    <view class="safe-top"></view>
+    <view class="floating-header">
+      <button class="circle-button" bindtap="goBack">‹</button>
+      <view class="header-actions">
+        <button class="circle-button favorite {{item.favorite ? 'on' : ''}}" bindtap="toggleFavorite">{{item.favorite ? '♥' : '♡'}}</button>
+        <button class="circle-button" open-type="share">↗</button>
+      </view>
+    </view>
+    <view wx:if="{{item.status === 'closed'}}" class="closed-ribbon">{{item.type === 'lost' ? '已找回' : '已归还'}}</view>
+  </view>
+
+  <view class="detail-sheet">
+    <view class="title-block">
+      <view class="pill {{item.status === 'closed' ? 'tag-closed' : (item.type === 'lost' ? 'tag-lost' : 'tag-found')}}">{{item.status === 'closed' ? (item.type === 'lost' ? '已找回' : '已归还') : (item.type === 'lost' ? '寻物中' : '招领中')}}</view>
+      <text class="detail-title">{{item.title}}</text>
+      <view class="owner-row">
+        <view class="owner-avatar">{{item.ownerInitial}}</view>
+        <view class="owner-copy">
+          <text class="owner-name">{{item.owner}}</text>
+          <text class="publish-time">发布于 {{item.createdAt}}</text>
+        </view>
+        <view class="verified">✓ 校园用户</view>
+      </view>
+    </view>
+
+    <view class="info-grid">
+      <view class="info-cell">
+        <view class="info-icon yellow">⌖</view>
+        <view>
+          <text class="info-label">{{item.type === 'lost' ? '可能丢失地点' : '拾取地点'}}</text>
+          <text class="info-value">{{item.location}}</text>
+        </view>
+      </view>
+      <view class="info-cell">
+        <view class="info-icon green">◷</view>
+        <view>
+          <text class="info-label">日期</text>
+          <text class="info-value">{{item.date}}</text>
+        </view>
+      </view>
+      <view class="info-cell">
+        <view class="info-icon blue">▦</view>
+        <view>
+          <text class="info-label">物品分类</text>
+          <text class="info-value">{{item.category}}</text>
+        </view>
+      </view>
+      <view class="info-cell">
+        <view class="info-icon orange">◎</view>
+        <view>
+          <text class="info-label">当前状态</text>
+          <text class="info-value">{{item.status === 'open' ? (item.type === 'lost' ? '寻找中' : '等待认领') : (item.type === 'lost' ? '已找回' : '已归还')}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="description-card card">
+      <view class="content-heading"><text class="heading-mark"></text>物品描述</view>
+      <text class="description-text">{{item.description}}</text>
+    </view>
+
+    <view class="safety-card">
+      <view class="safety-icon">盾</view>
+      <view class="safety-copy">
+        <text class="safety-title">安全提示</text>
+        <text class="safety-desc">认领时请核对物品特征，贵重物品建议在保卫处或公共区域交接。</text>
+      </view>
+    </view>
+
+    <button class="report-button" bindtap="report">信息有误？反馈或举报</button>
+  </view>
+
+  <view class="bottom-action">
+    <button class="mini-action" bindtap="toggleFavorite"><text>{{item.favorite ? '♥' : '♡'}}</text>{{item.favorite ? '已收藏' : '收藏'}}</button>
+    <button class="contact-button" bindtap="showContact">查看联系方式 <text>→</text></button>
+    <view class="safe-bottom"></view>
+  </view>
+
+  <view wx:if="{{contactVisible}}" class="modal-mask" bindtap="hideContact">
+    <view class="contact-modal" catchtap="stopPropagation">
+      <view class="modal-handle"></view>
+      <view class="contact-icon">✉</view>
+      <text class="modal-title">联系发布者</text>
+      <text class="modal-desc">请说明你看到的信息，并先核对物品特征</text>
+      <view class="contact-value">{{item.contact}}</view>
+      <button class="copy-button" bindtap="copyContact">复制联系方式</button>
+      <button class="cancel-button" bindtap="hideContact">取消</button>
+    </view>
+  </view>
+</view>
+
+<view wx:else class="not-found">
+  <view class="safe-top"></view>
+  <text class="not-found-icon">📭</text>
+  <text class="not-found-title">这条信息不存在或已删除</text>
+  <button class="primary-button" bindtap="goHome">返回首页</button>
+</view>

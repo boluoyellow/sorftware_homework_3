@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/publish/publish",
+    "pages/detail/detail",
+    "pages/success/success",
+    "pages/profile/profile",
+    "pages/login/login",
+    "pages/my-posts/my-posts",
+    "pages/favorites/favorites"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#F6F6F1",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": false
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

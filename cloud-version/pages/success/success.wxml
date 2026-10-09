@@ -1,0 +1,32 @@
+<view class="success-page">
+  <view class="safe-top"></view>
+  <view class="confetti c1"></view>
+  <view class="confetti c2"></view>
+  <view class="confetti c3"></view>
+  <view class="confetti c4"></view>
+
+  <view class="success-content">
+    <view class="success-visual">
+      <view class="outer-ring"></view>
+      <view class="success-icon">✓</view>
+      <text class="spark s1">✦</text>
+      <text class="spark s2">✦</text>
+      <text class="spark s3">•</text>
+    </view>
+    <text class="success-kicker">PUBLISHED</text>
+    <text class="success-title">发布成功</text>
+    <text class="success-desc">你的线索已经出现在首页。愿这条消息被对的人看见，让物品早一点回家。</text>
+
+    <view class="notice-card">
+      <view class="notice-icon">⌁</view>
+      <view>
+        <text class="notice-title">留意新的联系</text>
+        <text class="notice-desc">确认物品找回后，记得在“我的发布”中标记为已解决。</text>
+      </view>
+    </view>
+
+    <button class="view-button" bindtap="viewPost">查看发布信息 <text>→</text></button>
+    <button class="home-button" bindtap="goHome">返回首页</button>
+    <button class="again-button" bindtap="publishAnother">再发布一条</button>
+  </view>
+</view>
