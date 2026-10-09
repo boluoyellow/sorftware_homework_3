@@ -1,0 +1,23 @@
+<view class="favorites-page">
+  <view class="safe-top"></view>
+  <view class="page-header">
+    <button class="back-button" bindtap="goBack">‹</button>
+    <text class="page-title">我的收藏</text>
+    <view class="header-count">{{items.length}}</view>
+  </view>
+
+  <view class="collection-banner">
+    <view class="heart-box">♥</view>
+    <view>
+      <text class="banner-title">关注中的线索</text>
+      <text class="banner-desc">状态变化后，记得回来看看</text>
+    </view>
+  </view>
+
+  <view wx:if="{{items.length}}" class="favorites-list">
+    <view wx:for="{{items}}" wx:key="id" class="favorite-cell">
+      <item-card item="{{item}}" compact bind:open="openDetail" bind:favorite="toggleFavorite" />
+    </view>
+  </view>
+  <empty-state wx:else icon="♡" title="还没有收藏" description="看到重要线索时，点一下爱心就能在这里找到" action-text="去逛逛" bind:action="goHome" />
+</view>

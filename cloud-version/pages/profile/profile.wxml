@@ -1,0 +1,79 @@
+<view class="page-shell profile-page">
+  <view class="profile-hero">
+    <view class="safe-top"></view>
+    <view class="profile-topbar">
+      <view>
+        <text class="hero-kicker">MY SPACE</text>
+        <text class="hero-heading">个人中心</text>
+      </view>
+    </view>
+
+    <view wx:if="{{user}}" class="user-card">
+      <view class="avatar-wrap">
+        <image wx:if="{{user.avatar}}" src="{{user.avatar}}" mode="aspectFill" />
+        <text wx:else>{{user.initial}}</text>
+        <view class="online-dot"></view>
+      </view>
+      <view class="user-copy">
+        <text class="username">{{user.nickname}}</text>
+        <text class="user-account">{{user.account || '微信云端用户'}}</text>
+        <view class="user-tag">✓ 云端身份</view>
+      </view>
+      <button class="edit-button" bindtap="goLogin">修改昵称</button>
+    </view>
+
+    <view wx:else class="user-card guest-card" bindtap="goLogin">
+      <view class="avatar-wrap guest">?</view>
+      <view class="user-copy">
+        <text class="username">设置昵称</text>
+        <text class="user-account">设置昵称后发布云端信息</text>
+      </view>
+      <text class="login-arrow">→</text>
+    </view>
+  </view>
+
+  <view class="profile-content">
+    <view class="stats-card card">
+      <view class="stat-item" bindtap="goMyPosts">
+        <text class="stat-value">{{stats.posts}}</text>
+        <text class="stat-name">我的发布</text>
+      </view>
+      <view class="stat-line"></view>
+      <view class="stat-item" bindtap="goMyPosts">
+        <text class="stat-value highlight">{{stats.solved}}</text>
+        <text class="stat-name">成功找回</text>
+      </view>
+      <view class="stat-line"></view>
+      <view class="stat-item" bindtap="goFavorites">
+        <text class="stat-value">{{stats.favorites}}</text>
+        <text class="stat-name">我的收藏</text>
+      </view>
+    </view>
+
+    <view class="section-label">内容管理</view>
+    <view class="menu-card card">
+      <button class="menu-row" bindtap="goMyPosts">
+        <view class="menu-icon posts">▤</view>
+        <view class="menu-copy">
+          <text class="menu-title">我的发布</text>
+          <text class="menu-desc">管理状态、删除失效信息</text>
+        </view>
+        <view wx:if="{{stats.open}}" class="count-badge">{{stats.open}}</view>
+        <text class="menu-arrow">›</text>
+      </button>
+      <view class="menu-divider"></view>
+      <button class="menu-row" bindtap="goFavorites">
+        <view class="menu-icon favorites">♡</view>
+        <view class="menu-copy">
+          <text class="menu-title">我的收藏</text>
+          <text class="menu-desc">关注中的寻物与招领</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </button>
+    </view>
+
+    <text class="footer-slogan">拾起善意 · 让遗失有回音</text>
+  </view>
+
+  <bottom-nav current="profile" />
+</view>

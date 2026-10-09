@@ -1,0 +1,13 @@
+{
+  "name": "shiguang-campus-lost-found-cloud",
+  "version": "1.0.0",
+  "private": true,
+  "description": "拾光校园失物招领微信小程序云开发版",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node --check app.js && node --check utils/store.js && node --check pages/publish/publish.js && node --check pages/home/home.js && node --check pages/detail/detail.js && node --check pages/favorites/favorites.js && node --check pages/my-posts/my-posts.js && node --check pages/login/login.js && node --check pages/profile/profile.js && node --check cloudfunctions/shiguangApi/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
