@@ -20,12 +20,16 @@ async function invokeRaw(action, data = {}) {
 }
 
 function init() {
-  readyPromise = invokeRaw('bootstrap')
-  return readyPromise
+  const pending = invokeRaw('bootstrap')
+  readyPromise = pending
+  pending.catch(() => {
+    if (readyPromise === pending) readyPromise = null
+  })
+  return pending
 }
 
 async function request(action, data) {
-  await readyPromise
+  await (readyPromise || init())
   return invokeRaw(action, data)
 }
 

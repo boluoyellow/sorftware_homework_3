@@ -92,6 +92,34 @@ function timestamp(value) {
   return Number.isNaN(parsed) ? 0 : parsed
 }
 
+// 只为已从数据库查出的物品照片签发链接，不接收任意文件 ID 的签名请求。
+// 保留 image 作为稳定的云文件 ID；imageUrl 每次读取时刷新，不写回数据库。
+async function withImageUrls(items) {
+  const fileIds = [...new Set(items.map((item) => item.image).filter((fileId) =>
+    typeof fileId === 'string' && /^cloud:\/\/[^/]+\/listings\//.test(fileId)
+  ))]
+  const urls = new Map()
+  for (let offset = 0; offset < fileIds.length; offset += 50) {
+    try {
+      const result = await cloud.getTempFileURL({
+        fileList: fileIds.slice(offset, offset + 50).map((fileID) => ({ fileID, maxAge: 3600 }))
+      })
+      for (const file of result.fileList || []) {
+        if (file.tempFileURL && (!file.status || file.status === 0) && (!file.code || file.code === 'SUCCESS')) {
+          urls.set(file.fileID, file.tempFileURL)
+        }
+      }
+    } catch (error) {
+      // 图片服务异常不能让一条存在的信息变成“不存在”。
+      console.error('物品图片链接获取失败', error)
+    }
+  }
+  return items.map((item) => ({
+    ...item,
+    imageUrl: urls.get(item.image) || (/^https:\/\//.test(item.image || '') ? item.image : '')
+  }))
+}
+
 async function favoriteSet(openId) {
   const result = await db.collection(FAVORITES).where({ userOpenId: openId }).limit(100).get()
   return new Set(result.data.map((entry) => entry.itemId))
@@ -104,23 +132,25 @@ async function listItems(openId, query = {}) {
     source.limit(100).get(),
     favoriteSet(openId)
   ])
-  return itemsResult.data
+  return withImageUrls(itemsResult.data
     .sort((left, right) => timestamp(right.createdAtTs) - timestamp(left.createdAtTs))
-    .map((item) => normalizeItem(item, openId, favorites))
+    .map((item) => normalizeItem(item, openId, favorites)))
 }
 
 async function getItem(openId, id) {
   if (!id) return null
+  let document
   try {
-    const [result, favorites] = await Promise.all([
-      db.collection(ITEMS).doc(id).get(),
-      favoriteSet(openId)
-    ])
-    return normalizeItem(result.data, openId, favorites)
+    const result = await db.collection(ITEMS).doc(id).get()
+    document = result.data
   } catch (error) {
     if (String(error.errMsg || error.message || '').includes('does not exist')) return null
     throw error
   }
+  if (!document || !document._id) return null
+  const favorites = await favoriteSet(openId)
+  const [item] = await withImageUrls([normalizeItem(document, openId, favorites)])
+  return item
 }
 
 async function bootstrap() {
@@ -143,6 +173,10 @@ async function addItem(openId, payload) {
   const location = cleanText(payload.location, 60)
   const contact = cleanText(payload.contact, 80)
   if (!title || !description || !location || !contact) throw new Error('请完整填写发布信息')
+  const image = cleanText(payload.image, 500)
+  if (image && !/^cloud:\/\/[^/]+\/listings\//.test(image)) {
+    throw new Error('图片未正确上传，请重新选择图片')
+  }
 
   let owner = '校园同学'
   try {
@@ -158,7 +192,7 @@ async function addItem(openId, payload) {
       type, title, category, description, location,
       date: cleanText(payload.date, 10),
       contact,
-      image: cleanText(payload.image, 500),
+      image,
       status: 'open',
       owner,
       ownerOpenId: openId,
@@ -215,7 +249,7 @@ async function getFavorites(openId) {
   const items = await db.collection(ITEMS).where({ _id: command.in(ids) }).limit(100).get()
   const byId = new Map(items.data.map((item) => [item._id, item]))
   const favoriteIds = new Set(ids)
-  return ids.map((id) => byId.get(id)).filter(Boolean).map((item) => normalizeItem(item, openId, favoriteIds))
+  return withImageUrls(ids.map((id) => byId.get(id)).filter(Boolean).map((item) => normalizeItem(item, openId, favoriteIds)))
 }
 
 async function getProfile(openId) {
@@ -228,7 +262,8 @@ async function getProfile(openId) {
       account: '微信云端用户'
     }
   } catch (error) {
-    return null
+    if (String(error.errMsg || error.message || '').includes('does not exist')) return null
+    throw error
   }
 }
 
@@ -255,9 +290,12 @@ async function reportItem(openId, id, reason) {
 }
 
 exports.main = async (event) => {
-  const { OPENID } = cloud.getWXContext()
-  const action = event.action
+  let action
   try {
+    event = event || {}
+    action = event.action
+    const { OPENID } = cloud.getWXContext()
+    if (typeof OPENID !== 'string' || !OPENID.trim()) throw new Error('无法识别微信身份，请重新打开小程序')
     let data
     if (action === 'bootstrap') data = await bootstrap()
     else if (action === 'getAll') data = await listItems(OPENID)

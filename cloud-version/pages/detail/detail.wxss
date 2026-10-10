@@ -27,6 +27,17 @@
   transform: rotate(-4deg);
 }
 
+.image-retry {
+  position: absolute;
+  bottom: 90rpx;
+  padding: 10rpx 22rpx;
+  border-radius: 24rpx;
+  background: rgba(255,255,255,.9);
+  color: #718682;
+  font-size: 23rpx;
+  line-height: 1.5;
+}
+
 .floating-header {
   position: absolute;
   z-index: 3;

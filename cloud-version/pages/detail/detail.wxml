@@ -1,7 +1,22 @@
-<view wx:if="{{item}}" class="detail-page">
+<view wx:if="{{loadState === 'loading' && !item}}" class="not-found">
+  <view class="safe-top"></view>
+  <text class="not-found-icon">◷</text>
+  <text class="not-found-title">正在加载物品信息…</text>
+</view>
+
+<view wx:elif="{{loadState === 'error'}}" class="not-found">
+  <view class="safe-top"></view>
+  <text class="not-found-icon">☁</text>
+  <text class="not-found-title">暂时无法加载，请检查网络后重试</text>
+  <button class="primary-button" bindtap="loadItem">重新加载</button>
+  <button class="cancel-button" bindtap="goHome">返回首页</button>
+</view>
+
+<view wx:elif="{{item}}" class="detail-page">
   <view class="hero-image" style="background: {{item.gradient}}">
-    <image wx:if="{{item.image}}" class="real-image" src="{{item.image}}" mode="aspectFill" />
+    <image wx:if="{{item.imageUrl && !imageLoadFailed}}" class="real-image" src="{{item.imageUrl}}" mode="aspectFill" binderror="imageError" />
     <text wx:else class="hero-emoji">{{item.emoji}}</text>
+    <button wx:if="{{item.image && (!item.imageUrl || imageLoadFailed)}}" class="image-retry" bindtap="loadItem">图片暂时不可用 · 点击重试</button>
     <view class="safe-top"></view>
     <view class="floating-header">
       <button class="circle-button" bindtap="goBack">‹</button>

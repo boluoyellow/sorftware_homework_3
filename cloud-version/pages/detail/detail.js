@@ -1,10 +1,10 @@
 const store = require('../../utils/store')
 
 Page({
-  data: { id: '', item: null, contactVisible: false },
+  data: { id: '', item: null, loadState: 'loading', imageLoadFailed: false, contactVisible: false },
 
   onLoad(options) {
-    this.setData({ id: options.id || '' })
+    this.setData({ id: options.id || '', loadState: 'loading' })
   },
 
   onShow() {
@@ -15,20 +15,33 @@ Page({
     const item = this.data.item
     return {
       title: item ? `${item.type === 'lost' ? '寻物' : '招领'}：${item.title}` : '拾光校园寻物',
-      path: `/pages/detail/detail?id=${this.data.id}`
+      path: this.data.id ? `/pages/detail/detail?id=${encodeURIComponent(this.data.id)}` : '/pages/home/home'
     }
   },
 
   async loadItem() {
+    const requestId = (this._loadRequest || 0) + 1
+    this._loadRequest = requestId
+    if (!this.data.id) {
+      this.setData({ item: null, loadState: 'missing' })
+      return
+    }
+    this.setData({ loadState: 'loading', contactVisible: false })
     try {
       const item = await store.getById(this.data.id)
+      if (this._loadRequest !== requestId) return
       const viewItem = item ? { ...item, ownerInitial: (item.owner || '同学').slice(0, 1) } : null
-      this.setData({ item: viewItem })
+      this.setData({ item: viewItem, loadState: item ? 'ready' : 'missing', imageLoadFailed: false })
       if (item) wx.setNavigationBarTitle({ title: item.title })
     } catch (error) {
+      if (this._loadRequest !== requestId) return
       console.error(error)
-      wx.showToast({ title: '详情加载失败', icon: 'none' })
+      this.setData({ loadState: 'error' })
     }
+  },
+
+  imageError() {
+    this.setData({ imageLoadFailed: true })
   },
 
   goBack() {

@@ -1,4 +1,10 @@
 Component({
+  data: { imageLoadFailed: false },
+  observers: {
+    'item.imageUrl': function () {
+      this.setData({ imageLoadFailed: false })
+    }
+  },
   properties: {
     item: {
       type: Object,
@@ -10,6 +16,9 @@ Component({
     }
   },
   methods: {
+    imageError() {
+      this.setData({ imageLoadFailed: true })
+    },
     openDetail() {
       this.triggerEvent('open', { id: this.data.item.id })
     },
